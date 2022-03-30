@@ -24,4 +24,13 @@ let deletedata = {
     }
 }
 
-export { getdata, senddata, deletedata };
+let updatedata = {
+    async update(id, data) {
+        return await Service.patch(`/update/${id}`, data)
+    },
+    async updatetxt(id, data) {
+        return await Service.patch(`/updatetxt/${id}`, data)
+    }
+}
+
+export { getdata, senddata, deletedata, updatedata };

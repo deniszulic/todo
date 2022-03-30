@@ -70,7 +70,6 @@ export default {
           this.alldata.push(a.data);
           this.text = "";
         }
-        //console.log(a.data)
       } catch (e) {
         console.log(e.message);
       }
