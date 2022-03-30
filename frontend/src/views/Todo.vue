@@ -13,25 +13,41 @@
             </button>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input
-                type="checkbox"
-                aria-label="Checkbox for following text input"
-              />
-            </div>
-          </div>
-          <input
-            type="text"
-            class="form-control"
-            aria-label="Text input with checkbox"
-          />
-        </div>
+        <notcompleted v-for="data in alldata" :key="data.id" :data="data" />
       </div>
     </div>
   </div>
 </template>
+<script>
+import { getdata } from "@/services";
+import notcompleted from "@/components/notcompleted.vue";
+export default {
+  data() {
+    return {
+      text: "",
+      alldata: [],
+    };
+  },
+  components: {
+    notcompleted,
+  },
+  created() {
+    this.fetchData();
+  },
+  watch: {
+    $route: "fetchData",
+  },
+  methods: {
+    async fetchData() {
+      try {
+        this.alldata = await getdata.getalldata();
+      } catch (e) {
+        this.errormsg = e.message;
+      }
+    },
+  },
+};
+</script>
 <style scoped>
 .center {
   margin: 0;
