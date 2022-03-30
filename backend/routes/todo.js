@@ -46,4 +46,28 @@ router.post('/postdata', (req, res) => {
         });
 });
 
+router.delete('/delete/:id', (req, res) => {
+    const id = req.params.id;
+
+    todo.destroy({
+        where: { id: id }
+    })
+        .then(a => {
+            if (a == 1) {
+                res.send({
+                    message: "Deleted"
+                });
+            } else {
+                res.send({
+                    message: 'Cannot delete'
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: 'Cannot delete'
+            });
+        });
+});
+
 module.exports = router

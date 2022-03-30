@@ -20,7 +20,12 @@
             </div>
           </div>
         </form>
-        <notcompleted v-for="data in alldata" :key="data.id" :data="data" />
+        <notcompleted
+          v-for="data in alldata"
+          :key="data.id"
+          :data="data"
+          @delete="deletetodo"
+        />
       </div>
     </div>
   </div>
@@ -28,6 +33,7 @@
 <script>
 import { getdata } from "@/services";
 import { senddata } from "@/services";
+import { deletedata } from "@/services";
 import notcompleted from "@/components/notcompleted.vue";
 export default {
   data() {
@@ -60,11 +66,27 @@ export default {
       };
       try {
         let a = await senddata.putdata(data);
-        this.alldata.push(a.data);
-        this.text = "";
+        if (a.status == 200) {
+          this.alldata.push(a.data);
+          this.text = "";
+        }
         //console.log(a.data)
       } catch (e) {
         console.log(e.message);
+      }
+    },
+    async deletetodo(id) {
+      try {
+        await deletedata.deletetodo(id).then(() => {
+          for (let [i, x] of this.alldata.entries()) {
+            if (x.id == id) {
+              this.alldata.splice(i, 1);
+              break;
+            }
+          }
+        });
+      } catch (e) {
+        console.log(e);
       }
     },
   },

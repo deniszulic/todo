@@ -18,4 +18,10 @@ let senddata = {
     }
 }
 
-export { getdata, senddata };
+let deletedata = {
+    async deletetodo(id) {
+        return await Service.delete(`delete/${id}`)
+    }
+}
+
+export { getdata, senddata, deletedata };
