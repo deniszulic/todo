@@ -12,4 +12,10 @@ let getdata = {
     }
 }
 
-export { getdata };
+let senddata = {
+    async putdata(data) {
+        return await Service.post("/postdata", data);
+    }
+}
+
+export { getdata, senddata };

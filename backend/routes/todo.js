@@ -17,7 +17,31 @@ router.get('/alldata', (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Error"
+            });
+        });
+});
+
+router.post('/postdata', (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Empty"
+        });
+        return;
+    }
+    const data = {
+        completed: req.body.completed,
+        text: req.body.text
+    };
+
+    todo.create(data)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Error"
             });
         });
 });
