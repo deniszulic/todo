@@ -69,18 +69,20 @@ export default {
       }
     },
     async senddata() {
-      let data = {
-        text: this.text,
-        completed: false,
-      };
-      try {
-        let a = await senddata.putdata(data);
-        if (a.status == 200) {
-          this.alldata.push(a.data);
-          this.text = "";
+      if (this.text != "") {
+        let data = {
+          text: this.text,
+          completed: false,
+        };
+        try {
+          let a = await senddata.putdata(data);
+          if (a.status == 200) {
+            this.alldata.push(a.data);
+            this.text = "";
+          }
+        } catch (e) {
+          console.log(e.message);
         }
-      } catch (e) {
-        console.log(e.message);
       }
     },
     async deletetodo(id) {
