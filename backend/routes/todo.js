@@ -70,52 +70,52 @@ router.delete('/delete/:id', (req, res) => {
         });
 });
 
-router.patch('/update/:id',(req, res) => {
+router.patch('/update/:id', (req, res) => {
     const id = req.params.id;
-  
-    todo.update(req.body, {
-      where: { id: id }
-    })
-      .then(a => {
-        if (a == 1) {
-          res.send({
-            message: "Updated successfully"
-          });
-        } else {
-          res.send({
-            message: 'Cannot update'
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error"
-        });
-      });
-  });
 
-  router.patch('/updatetxt/:id',(req, res) => {
-    const id = req.params.id;
-  
     todo.update(req.body, {
-      where: { id: id }
+        where: { id: id }
     })
-      .then(a => {
-        if (a == 1) {
-          res.send({
-            message: "Updated successfully"
-          });
-        } else {
-          res.send({
-            message: 'Cannot update'
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error"
+        .then(a => {
+            if (a == 1) {
+                res.send({
+                    message: "Updated successfully"
+                });
+            } else {
+                res.send({
+                    message: 'Cannot update'
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error"
+            });
         });
-      });
-  });
+});
+
+router.patch('/updatetxt/:id', (req, res) => {
+    const id = req.params.id;
+
+    todo.update(req.body, {
+        where: { id: id }
+    })
+        .then(a => {
+            if (a == 1) {
+                res.send({
+                    message: "Updated successfully"
+                });
+            } else {
+                res.send({
+                    message: 'Cannot update'
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error"
+            });
+        });
+});
 
 module.exports = router

@@ -20,8 +20,16 @@
             </div>
           </div>
         </form>
+        <select
+          class="form-select form-select-sm w-100 p-3"
+          aria-label=".form-select-sm example"
+          v-model="choose"
+        >
+          <option value="true">Completed</option>
+          <option value="false">Uncompleted</option>
+        </select>
         <notcompleted
-          v-for="data in alldata"
+          v-for="data in filtered"
           :key="data.id"
           :data="data"
           @delete="deletetodo"
@@ -40,6 +48,7 @@ export default {
     return {
       text: "",
       alldata: [],
+      choose: "",
     };
   },
   components: {
@@ -89,6 +98,13 @@ export default {
       }
     },
   },
+  computed: {
+    filtered() {
+      if (this.choose == "false") this.choose = false;
+      if (this.choose == "true") this.choose = true;
+      return this.alldata.filter((word) => word.completed == this.choose);
+    },
+  },
 };
 </script>
 <style scoped>
@@ -102,5 +118,8 @@ export default {
 }
 .size {
   font-size: 30px;
+}
+select {
+  margin-bottom: 10px;
 }
 </style>
